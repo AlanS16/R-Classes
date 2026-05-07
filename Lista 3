@@ -1,0 +1,61 @@
+##########################################
+# Lista de exercícios 3
+# Autor: Alan Sasaki
+# Data: 03/05/2026
+##########################################
+# Removendo os objetos ativos
+rm(list=ls())
+
+#Carregando os dados
+urlfile <- "https://codeberg.org/edsonzmartinez/CursoR/raw/branch/main/dadosclimaticosRP.csv"
+Clima   <- read.csv2(urlfile, fileEncoding = "Windows-1252")
+
+#a
+names(Clima)
+
+#b
+head(Clima, n=6)
+
+#c
+tail(Clima)
+
+#d
+Clima[20:40, ]
+
+#e
+Clima[Clima$ano == 1993, ]
+
+#f
+Clima$mes = trimws(Clima$mes)
+mesesnames = factor(Clima$mes, levels=c("janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"))
+boxplot(Clima$precipitacao~mesesnames,xlab="Mês",ylab="Precipitação")
+
+#g
+tmin = Clima$tempminabs
+tmax = Clima$tempmaxabs
+
+serieTmin = ts(tmin, start = c(1991,1), frequency = 12)
+serieTmax = ts(tmax, start = c(1991,1), frequency = 12)
+
+todosvalores = c(serieTmin, serieTmax)
+limitesy = range(todosvalores, na.rm = TRUE)
+
+
+plot(serieTmin,
+     col = "blue",
+     lwd = 2,
+     ylim = limitesy,
+     ylab = "Temperatura (°C)",
+     xlab = "Ano",
+     main = "Temperaturas mensais em Ribeirão Preto, 1991 a 2021")
+
+lines(serieTmax,
+      col = "red",
+      lwd = 2)
+
+legend("bottomright",
+       legend = c("Temperatura mínima", "Temperatura máxima"),
+       col = c("blue", "red"),
+       lwd = 2)
+
+grid()
