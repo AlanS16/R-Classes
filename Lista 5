@@ -21,19 +21,16 @@ CalculoLDL = function(CT, HDLc, TG, jejum=TRUE) {
 
         #Hiperlipidemia mista
         if(jejum == TRUE) {
-            if(LDLc >= 160 && TG >= 150) {warning("Hiperlipidemia mista")}
-        }
+            if(LDLc >= 160 && TG >= 150) {warning("Hiperlipidemia mista")}}
+
         else{if(LDLc >= 160 && TG >=  175) {warning("Hiperlipidemia mista")}}
         
         #Hipercolesterolemia isolada
-        if(LDLc >= 160) {
-        Hmista = FALSE
+        if(LDLc >= 160) {Hmista = FALSE
     
-        if(jejum == TRUE && TG >= 150) {
-        Hmista = TRUE}
+        if(jejum == TRUE && TG >= 150) {Hmista = TRUE}
     
-        if(jejum == FALSE && TG >= 175) {
-        Hmista = TRUE}
+        if(jejum == FALSE && TG >= 175) {Hmista = TRUE}
     
         if(!Hmista) {warning("Hipercolesterolemia isolada.")}}
   
