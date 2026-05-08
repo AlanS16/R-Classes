@@ -44,10 +44,45 @@ legend("topleft", legend = c("Dados normais", "Outliers"), col = c("Blue", "red"
 
 #Exercício 5
 #Divide em 3 colunas
-par(mfrow = c(1,3)) 
-       hist(w$Age, main = "Idade", xlab = "Anos", col = "green") 
-       hist(w$peso_kg, main = "Peso", xlab = "kg", col = "red") 
-       hist(w$altura_cm, main = "Estatura", xlab = "cm", col = "blue")
+par(mfrow = c(1,3), mar = c(8,4,4,2))
+
+# Testes de Shapiro-Wilk
+teste_idade = shapiro.test(w$Age)
+teste_peso = shapiro.test(w$peso_kg)
+teste_altura = shapiro.test(w$altura_cm)
+
+# Idade
+hist(w$Age,main = "Idade",xlab = "Anos",col = "green")
+
+if(teste_idade$p.value > 0.05){
+       resultado = "normal"} 
+	else {resultado = "nao normal"}
+
+mtext(paste("p =", format(teste_idade$p.value, scientific = TRUE)),side = 1,line = 5,cex = 0.7)
+
+mtext(resultado,side = 1,line = 6,cex = 0.7)
+
+# Peso
+hist(w$peso_kg,main = "Peso",xlab = "kg",col = "red")
+
+if(teste_peso$p.value > 0.05){
+       resultado = "normal"} 
+	else {resultado = "nao normal"}
+
+mtext(paste("p =", format(teste_peso$p.value, scientific = TRUE)),side = 1,line = 5,cex = 0.7)
+
+mtext(resultado,side = 1,line = 6,cex = 0.7)
+
+# Estatura
+hist(w$altura_cm,main = "Estatura",xlab = "cm",col = "blue")
+
+if(teste_altura$p.value > 0.05){
+       resultado = "normal"} 
+	else {resultado = "nao normal"}
+
+mtext(paste("p =", format(teste_altura$p.value, scientific = TRUE)),side = 1,line = 5,cex = 0.7)
+
+mtext(resultado,side = 1,line = 6,cex = 0.7)
 
 #Exercício 6
 #Divide a tela em 16 espaços
